@@ -15,6 +15,12 @@ class ProductosController < ApplicationController
 
   # POST /productos
   def create
+#codigo para enviar correo
+    if @usuarioCorreo.save
+      UserMailer.with(user: @usuarioCorreo).welcome_email.deliver
+      redirect_to @usuarioCorreo
+    end
+#fin codigo para enviar correo
     @producto = Producto.new(producto_params)
 
     if @producto.save

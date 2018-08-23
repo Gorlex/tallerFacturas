@@ -9,6 +9,11 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  #Codigo para correo
+  #config.assets.quiet = true
+
+
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -31,9 +36,11 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -43,6 +50,20 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "programalaescena@gmail.com",
+    :password             => "3156497602",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
+  config.action_mailer.default_url_options = {host: "localhost:3000"}
+  #fin codigo correo
 
 
   # Raises error for missing translations

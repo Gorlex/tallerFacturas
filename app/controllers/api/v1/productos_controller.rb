@@ -17,14 +17,17 @@ module Api
                 
                         # POST /productos
                         def create
-                        @producto = Producto.new(producto_params)
-                    
-                        if @producto.save
-                            render json: @producto, status: :created, location: @producto
-                        else
-                            render json: @producto.errors, status: :unprocessable_entity
-                        end
-                        end
+                       
+                            @producto = Producto.new(producto_params)
+                        
+                            if @producto.save
+                                UserMailer.with(user: @producto).welcome_email.deliver
+                                
+                                render json: @producto, status: :created, location: @producto
+                                else
+                                render json: @producto.errors, status: :unprocessable_entity
+                                end
+                            end
                     
                         # PATCH/PUT /productos/1
                         def update
